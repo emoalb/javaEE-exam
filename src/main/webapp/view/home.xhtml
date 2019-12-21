@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:include src="templates/head.xhtml"/>
+<h:body>
+
+            <ui:include src="templates/user-navbar.xhtml"/>
+    <main>
+            <div class="text-center mb-3">
+                <h4 class="text-white mt-2">Welcome to the arena, #{session.getAttribute("username")}</h4>
+            </div>
+            <hr class="my-3"/>
+            <div class="container">
+                <div class="row mb-4 d-flex justify-content-around">
+                    <ui:repeat value="#{homeBean.heroViewModels}" var="hero" varStatus="index">
+                        <h:outputText value="&lt;div class='row mb-4 d-flex justify-content-around'&gt;" escape="false"
+                                      rendered="#{index.index % 3 == 0}"/>
+                    <div class="col-md-3 d-flex flex-column text-center mb-3">
+                        <h:graphicImage library="img" name="#{hero.heroClass}.jpg" styleClass="img-thumbnail"
+                                        width="300" height="300"/>
+                        <h5 class="text-white text-center">#{hero.name}</h5>
+                        <h:link outcome="details?id=#{hero.id}" class="btn btn-info mb-2" value="Details"/>
+                        <h:link outcome="delete?id=#{hero.id}" class="btn btn-danger" value="Delete"/>
+
+                    </div>
+                        <h:outputText value="&lt;/div&gt;" escape="false" rendered="#{index.index % 3 == 2}"/>
+                    </ui:repeat>
+                </div>
+            </div>
+    </main>
+    <ui:include src="templates/footer.xhtml"/>
+</h:body>
+</html>
